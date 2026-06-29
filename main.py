@@ -1448,13 +1448,7 @@ def extract_info(response_text):
                 ],
             ),
             "userGuid": extract_first_match(response_text, [r'"userGuid":\s*"([^"]+)"']),
-            "showExtraMemberSection": extract_bool_value(
-                response_text,
-                [
-                    r'"showExtraMemberSection":\s*\{\s*"fieldType":\s*"Boolean",\s*"value":\s*(true|false)',
-                    r'"showExtraMemberSection"\s*:\s*(true|false)',
-                ],
-            ),
+            "showExtraMemberSection": True if graphql_info.get('showExtraMemberSection') else False,
             "membershipStatus": extract_first_match(response_text, [r'"membershipStatus":\s*"([^"]+)"']),
             "maxStreams": extract_first_match(
                 response_text,
