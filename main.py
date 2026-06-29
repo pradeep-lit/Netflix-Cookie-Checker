@@ -1363,7 +1363,7 @@ def extract_info_from_graphql_payload(response_text):
         "memberSince": decode_netflix_value(growth_account.get("memberSince")),
         "nextBillingDate": decode_netflix_value(next_billing.get("localDate") or next_billing.get("date")),
         "userGuid": decode_netflix_value(growth_account.get("ownerGuid") or current_profile.get("guid")),
-        "showExtraMemberSection": "Yes" if "EXTRA_MEMBER" in feature_types else "No" if feature_types else None,
+        "showExtraMemberSection": "Yes" if not growth_account.get('extraMemberSlots', []) == [] else "No",
         "membershipStatus": decode_netflix_value(growth_account.get("membershipStatus")),
         "localizedPlanName": decode_netflix_value(current_plan.get("name") or next_plan.get("name")),
         "planPrice": _extract_price_value(current_plan) or _extract_price_value(next_plan),
